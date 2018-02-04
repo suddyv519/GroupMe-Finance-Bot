@@ -2,8 +2,10 @@ import os
 import sys
 import json
 import groupy
+from groupy.client import Client
+client = Client.from_token(os.getenv('GROUPME_BOT_ID'))
 
-from groupy import Bot, Group, attachments
+from client import Bot, Group, attachments
 
 groupy.config.KEY_LOCATION = "/.groupy.key"
 
@@ -20,6 +22,7 @@ def post():
     log('Recieved {}'.format(data))
     gID = data['group_id']
     bot = get_bot(gID)
+
     # We don't want to reply to ourselves!
     if data['name'] != bot.name:
         msg = data['text']
