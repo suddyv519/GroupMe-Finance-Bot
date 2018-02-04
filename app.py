@@ -2,10 +2,8 @@ import os
 import sys
 import json
 import groupy
-from groupy.client import Client
-client = Client.from_token(os.getenv('GROUPME_BOT_ID'))
 
-from client import Bot, Group, attachments
+from groupy import Bot, Group, attachments
 
 groupy.config.KEY_LOCATION = "/.groupy.key"
 
