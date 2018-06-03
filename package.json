@@ -1,0 +1,27 @@
+{
+  "name": "GroupMe Finance Bot",
+  "version": "0.1.2",
+  "description": "Bot that will display stock/crypto prices",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "director": ""
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suddyv519/GroupMe-Finance-Bot"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express",
+    "stocks",
+    "finance"
+  ],
+  "license": "MIT"
+}
