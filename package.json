@@ -1,6 +1,6 @@
 {
-  "name": "GroupMe Finance Bot",
-  "version": "0.1.2",
+  "name": "groupme-finance-bot",
+  "version": "1.0",
   "description": "Bot that will display stock/crypto prices",
   "main": "index.js",
   "scripts": {
