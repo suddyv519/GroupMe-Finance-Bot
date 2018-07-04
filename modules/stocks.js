@@ -17,7 +17,7 @@ exports.process = (message, bot) => {
                 bot.sendMessage("No price data found");
             } else {
                 console.log(`${ticker}=>${price}`);
-                bot.sendMessage(`${ticker}: $${price}`);
+                bot.sendMessage(`${ticker.toUpperCase()}: $${price}`);
             }
         });
     }
