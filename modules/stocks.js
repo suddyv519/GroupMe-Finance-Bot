@@ -12,7 +12,7 @@ exports.process = (message, bot) => {
         
         //Get the IEX result, and send it, if found
         bot.request.get(stockurl, (error, response, body) => {
-            const price = JSON.parse(body)["data"];
+            const price = JSON.parse(body);
             if (error) {
                 bot.sendMessage("No price data found");
             } else {
