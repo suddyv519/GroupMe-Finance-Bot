@@ -1,27 +1,32 @@
 {
-  "name": "groupme-finance-bot",
-  "version": "1.0",
-  "description": "Bot that will display stock/crypto prices",
-  "main": "index.js",
+  "name": "groupme-bot",
+  "version": "0.1.0",
+  "description": "An easily extensible, modular, groupme-bot",
+  "main": "bot.js",
   "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "director": ""
-  },
-  "engines": {
-    "node": "0.10.x"
+    "start": "node start.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/suddyv519/GroupMe-Finance-Bot"
+    "url": "git+https://github.com/Meegul304/groupme-bot.git"
   },
   "keywords": [
-    "node",
-    "heroku",
-    "express",
-    "stocks",
-    "finance"
+    "groupme",
+    "bot"
   ],
-  "license": "MIT"
+  "author": "Meegul304",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Meegul304/groupme-bot/issues"
+  },
+  "homepage": "https://github.com/Meegul304/groupme-bot#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "request": "^2.79.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.11.1"
+  }
 }

@@ -1,57 +1,66 @@
-var HTTPS = require('https');
-var cool = require('cool-ascii-faces');
+const req = require("request");
+const modules = [];
+const bot = {
+    request: req,
+    api_url: "https://api.groupme.com/v3/bots/",
+    bot_ID: "",
+    group_ID: "",
+    sendMessage(text) {
+        const toSend = `${bot.api_url}post?bot_id=${bot.bot_ID}&text=${encodeURIComponent(text)}`;
+        bot.request.post(toSend, (error, response, body) => {
+            if (error) {
+                console.log(error);
+            }
+        });
+    }
+};
 
-var botID = process.env.BOT_ID;
+exports.onPost = (req, res) => {
+    const message = {
+        text: req.body.text,
+        user: req.body.sender_id,
+        is_bot: req.body.sender_type === "bot"
+    };
+    modules.forEach((moduleOn) => {
+        moduleOn.process(message, bot);
+    });
+    res.end();
+};
 
-function respond() {
-  var request = JSON.parse(this.req.chunks[0]),
-      botRegex = /^\/cool guy$/;
-
-  if(request.text && botRegex.test(request.text)) {
-    this.res.writeHead(200);
-    postMessage();
-    this.res.end();
-  } else {
-    console.log("don't care");
-    this.res.writeHead(200);
-    this.res.end();
-  }
-}
-
-function postMessage() {
-  var botResponse, options, body, botReq;
-
-  botResponse = cool();
-
-  options = {
-    hostname: 'api.groupme.com',
-    path: '/v3/bots/post',
-    method: 'POST'
-  };
-
-  body = {
-    "bot_id" : botID,
-    "text" : botResponse
-  };
-
-  console.log('sending ' + botResponse + ' to ' + botID);
-
-  botReq = HTTPS.request(options, function(res) {
-      if(res.statusCode == 202) {
-        //neat
-      } else {
-        console.log('rejecting bad status code ' + res.statusCode);
-      }
-  });
-
-  botReq.on('error', function(err) {
-    console.log('error posting message '  + JSON.stringify(err));
-  });
-  botReq.on('timeout', function(err) {
-    console.log('timeout posting message '  + JSON.stringify(err));
-  });
-  botReq.end(JSON.stringify(body));
-}
-
-
-exports.respond = respond;
+exports.initialize = (values) => {
+    //Error checking
+    let errors = false;
+    if (!values.bot_ID) {
+        console.log("Please initialize with a bot_ID");
+        errors = true;
+    }
+    if (!values.group_ID) {
+        console.log("Please intialize with a group_ID");
+        errors = true;
+    }
+    if (!values.modules || values.modules.length < 1) {
+        console.log("Please initialize with at least one module");
+        errors = true;
+    }
+    if (errors)
+        return;
+    //We didn't have any errors, load the values.
+    bot.bot_ID = values.bot_ID;
+    bot.group_ID = values.group_ID;
+    //Load the modules, if possible.
+    let modulesLoaded = "";
+    values.modules.forEach((value, index) => {
+        try {
+            const moduleOn = require(`./modules/${value}.js`);
+            modules[index] = moduleOn;
+            if (modulesLoaded)
+                modulesLoaded += `, ${value}`;
+            else modulesLoaded = value;
+        } catch (error) {
+            console.log(error);
+            console.log(`Module ${value} not found.`);
+            return;
+        }
+    });
+    console.log(`Successfully initialized the bot, with bot_ID: ${bot.bot_ID}, group_ID: ${bot.group_ID}, and modules ${modulesLoaded}`);
+};
