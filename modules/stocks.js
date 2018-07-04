@@ -16,7 +16,6 @@ exports.process = (message, bot) => {
             if (error) {
                 bot.sendMessage("No price data found");
             } else {
-                const indexSelected = Math.floor(Math.random() * (numTopResults));
                 console.log(`${ticker}=>${price}`);
                 bot.sendMessage(price);
             }
