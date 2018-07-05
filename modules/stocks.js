@@ -15,7 +15,13 @@ exports.process = (message, bot) => {
             if (error) {
                 bot.sendMessage(`No price data for ${ticker} found`);
             } else {
-                const price = JSON.parse(body);
+                const price = null;
+                try {
+                    price = JSON.parse(body);
+                } catch (err) {
+                    console.log(err);
+                    bot.sendMessage(`No price data for ${ticker} found`);
+                }
                 console.log(`${ticker}=>${price}`);
                 bot.sendMessage(`${ticker.toUpperCase()}: $${price}`);
             }
