@@ -10,18 +10,21 @@ exports.process = (message, bot) => {
         //Get the total, encoded URL we're going to pass to IEX to search
         const stockurl = `https://api.iextrading.com/1.0/stock/${encodeURIComponent(ticker)}/price`;
         
-        //Get the IEX result, and send it, if found
-        bot.request.get(stockurl, (error, response, body) => {
-            if (error) {
-                bot.sendMessage(`There was an error with the request`);
-            } else {
-                const price = body;
-                if (price === "Unknown symbol") {
-                    bot.sendMessage(`No price data for ${ticker.toUpperCase()} found`);
+        //only send request if ticker is a proper length
+        if (ticker.length <= 5) {
+            //Get the IEX result, and send it, if found
+            bot.request.get(stockurl, (error, response, body) => {
+                if (error) {
+                    bot.sendMessage(`There was an error with the request`);
                 } else {
-                    bot.sendMessage(`${ticker.toUpperCase()}: $${price}`);
+                    const price = body;
+                    if (price === "Unknown symbol") {
+                        bot.sendMessage(`No price data for ${ticker.toUpperCase()} found`);
+                    } else {
+                        bot.sendMessage(`${ticker.toUpperCase()}: $${price}`);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 };
