@@ -13,17 +13,14 @@ exports.process = (message, bot) => {
         //Get the IEX result, and send it, if found
         bot.request.get(stockurl, (error, response, body) => {
             if (error) {
-                bot.sendMessage(`No price data for ${ticker} found`);
+                bot.sendMessage(`There was an error with the request`);
             } else {
-                const price = null;
-                try {
-                    price = JSON.parse(body);
-                } catch (err) {
-                    console.log(err);
-                    bot.sendMessage(`No price data for ${ticker} found`);
+                const price = body;
+                if (price === "Unknown symbol") {
+                    bot.sendMessage(`No price data for ${ticker.toUpperCase()} found`);
+                } else {
+                    bot.sendMessage(`${ticker.toUpperCase()}: $${price}`);
                 }
-                console.log(`${ticker}=>${price}`);
-                bot.sendMessage(`${ticker.toUpperCase()}: $${price}`);
             }
         });
     }
