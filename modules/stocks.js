@@ -5,7 +5,7 @@ exports.process = (message, bot) => {
     //If we found the string we're looking for get results and send them
     if (index != -1) {
         //Get the string we are searching for.
-        const ticker = message.text.substring(index + trigger.length);
+        const ticker = message.text.substring(index + trigger.length).trim();
         //Get the total, encoded URL we're going to pass to IEX to search
         const stockurl = `https://api.iextrading.com/1.0/stock/${encodeURIComponent(ticker)}/price`;
         
