@@ -19,3 +19,7 @@ app.listen(port, () => {
 app.post("/", (req, res) => {
     bot.onPost(req, res);
 });
+
+app.get("/", (req, res) => {
+    bot.onPost(req, res);
+});
