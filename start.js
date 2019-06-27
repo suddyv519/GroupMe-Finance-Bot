@@ -17,9 +17,9 @@ app.listen(port, () => {
 });
 
 app.post("/", (req, res) => {
-    req.send("Hello world");
+    bot.onPost(req, res);
 });
 
 app.get("/", (req, res) => {
-    bot.onPost(req, res);
+    res.sendFile(path.join('/index.html'));
 });
