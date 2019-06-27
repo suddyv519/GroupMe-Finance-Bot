@@ -17,7 +17,7 @@ app.listen(port, () => {
 });
 
 app.post("/", (req, res) => {
-    bot.onPost(req, res);
+    req.send("Hello world");
 });
 
 app.get("/", (req, res) => {
