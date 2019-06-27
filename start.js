@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const bot = require("./bot.js");
-
+const path = require("path");
 const port = process.env.PORT || 3000;
 
 bot.initialize({
@@ -21,5 +21,5 @@ app.post("/", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join('/index.html'));
+    res.sendFile(path.join(__dirname + '/index.html'));
 });
