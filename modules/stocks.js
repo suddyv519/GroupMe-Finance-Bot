@@ -1,6 +1,6 @@
 exports.process = (message, bot) => {
     const key = process.env.API_KEY;
-    const tickers = message.text.match(/\B[$]\w{1,4}\s/g);
+    const tickers = message.text.match(/\B[$]\w{1,4}\s?/g);
 
     if (tickers && tickers.length > 0) {
         tickers.forEach(t => {
