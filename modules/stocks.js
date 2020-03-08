@@ -1,7 +1,7 @@
 exports.process = (message, bot) => {
     const key = process.env.API_KEY;
     console.log(message.text);
-    const tickers = message.text.match(/\B[$]\w\w\w\w?\s/g);
+    const tickers = message.text.match(/\B[$]\w\w\w\w?\s?/g);
     console.log(tickers);
 
     if (tickers && tickers.length > 0) {
@@ -15,12 +15,8 @@ exports.process = (message, bot) => {
                 } else {
                     const resp = body['Global Quote'];
                     console.log(resp);
-                    if (price === "Unknown symbol") {
-                        bot.sendMessage(`No price data for ${ticker.toUpperCase()} found`);
-                    } else {
-                        // bot.sendMessage(`${ticker.toUpperCase()}: $${price}`);
-                        bot.sendMessage(resp);
-                    }
+                    // bot.sendMessage(`${ticker.toUpperCase()}: $${price}`);
+                    bot.sendMessage(resp);
                 }
             });
         });
