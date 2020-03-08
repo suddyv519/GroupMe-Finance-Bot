@@ -1,12 +1,11 @@
 exports.process = (message, bot) => {
     const key = process.env.API_KEY;
+    const tickers = message.text.match(/\B[$]\w\w\w\w?\s/g);
+    console.log(tickers);
 
-    if (index != -1) {
-        const tickers = message.text.match(/\B[$]\w\w\w\w?\s/g);
-        console.log(tickers);
-        
+    if (tickers.length > 0) {
         tickers.forEach(t => {
-            const ticker = encodeURIComponent(t.trim());
+            const ticker = encodeURIComponent(t.slice(1).trim());
             const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=${key}`;
             bot.request.get(url, (error, response, body) => {
                 if (error) {
