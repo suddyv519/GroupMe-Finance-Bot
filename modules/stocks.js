@@ -1,6 +1,6 @@
 exports.process = (message, bot) => {
     const key = process.env.API_KEY;
-    const tickers = message.text.match(/\B[$]\w\w\w\w?\s?/g);
+    const tickers = message.text.match(/\B[$]\w{1,4}\s/g);
 
     if (tickers && tickers.length > 0) {
         tickers.forEach(t => {
@@ -13,10 +13,10 @@ exports.process = (message, bot) => {
                     console.log(error);
                 } else {
                     console.log(body);
-                    let resp = JSON.parse(body)['Global Quote'].replace(/"([^"]+)":/g, '$1:');
+                    let resp = JSON.stringify(JSON.parse(body)['Global Quote']).replace(/"([^"]+)":/g, '$1:');
                     resp = resp.slice(1, resp.length - 1);
                     // bot.sendMessage(`${ticker.toUpperCase()}: $${price}`);
-                    bot.sendMessage(JSON.stringify(resp));
+                    bot.sendMessage(resp);
                 }
             });
         });
