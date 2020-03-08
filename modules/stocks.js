@@ -1,9 +1,10 @@
 exports.process = (message, bot) => {
     const key = process.env.API_KEY;
+    console.log(message.text);
     const tickers = message.text.match(/\B[$]\w\w\w\w?\s/g);
     console.log(tickers);
 
-    if (tickers.length > 0) {
+    if (tickers && tickers.length > 0) {
         tickers.forEach(t => {
             const ticker = encodeURIComponent(t.slice(1).trim());
             const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=${key}`;
