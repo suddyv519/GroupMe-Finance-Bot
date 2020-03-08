@@ -15,7 +15,7 @@ exports.process = (message, bot) => {
                     console.log(body);
                     const resp = JSON.parse(body)['Global Quote'];
                     // bot.sendMessage(`${ticker.toUpperCase()}: $${price}`);
-                    bot.sendMessage(resp);
+                    bot.sendMessage(JSON.stringify(resp));
                 }
             });
         });
