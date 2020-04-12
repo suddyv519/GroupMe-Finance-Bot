@@ -15,7 +15,6 @@ exports.process = (message, bot) => {
                     console.log(body);
                     let resp = JSON.stringify(JSON.parse(body)['Global Quote']).replace(/"([^"]+)":/g, '$1:');
                     resp = resp.slice(1, resp.length - 1);
-                    // bot.sendMessage(`${ticker.toUpperCase()}: $${price}`);
                     bot.sendMessage(resp);
                 }
             });
